@@ -74,6 +74,16 @@ class Scanner {
             case '>':
                 addToken(match('=') ? GREATER_EQUAL : GREATER);
                 break;
+            case '/':
+                if (match('/')) {
+                    // Comment goes until the end of the line.
+                    // They aren't meaningful to the parser so we don't call addToken() at the end
+                    while (peek() != '\n' && !isAtEnd())
+                        advance();
+                } else {
+                    addToken(SLASH);
+                }
+                break;
             default:
                 Lox.error(line, "Unexpected character.");
                 break;
@@ -88,6 +98,13 @@ class Scanner {
 
         current++;
         return true;
+    }
+
+    // Lookahead function of 1 character
+    private char peek() {
+        if (isAtEnd())
+            return '\0';
+        return source.charAt(current);
     }
 
     private boolean isAtEnd() {
