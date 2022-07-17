@@ -33,7 +33,7 @@ public class Lox {
   }
 
   private static void runPrompt() throws IOException {
-    InputStreamReader inpput = new InputStreamReader(System.in);
+    InputStreamReader input = new InputStreamReader(System.in);
     BufferedReader reader = new BufferedReader(input);
 
     for (;;) {
